@@ -73,12 +73,12 @@
             transition: all 0.3s ease-in-out;
         }
 
-        /* Estilos para el Modal del Aviso de Privacidad */
-        #privacy-modal {
+        /* Estilos para los Modales */
+        .modal-overlay {
             display: none;
             backdrop-filter: blur(4px);
         }
-        #privacy-modal.active {
+        .modal-overlay.active {
             display: flex;
         }
     </style>
@@ -342,50 +342,139 @@
 
             </div>
 
-            <div class="border-t border-brand-tealLight pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="border-t border-brand-tealLight pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
                 <p class="text-[10px] text-gray-500 uppercase tracking-widest">&copy; 2026 Ballet Fit by Jen. Guadalajara, Jalisco.</p>
-                <button id="open-privacy" class="text-[10px] text-brand-teal uppercase tracking-widest font-bold hover:underline">Aviso de Privacidad</button>
+                <div class="flex gap-6">
+                    <button onclick="toggleModal('privacy-modal')" class="text-[10px] text-brand-teal uppercase tracking-widest font-bold hover:underline underline-offset-4">Aviso de Privacidad</button>
+                    <button onclick="toggleModal('rules-modal')" class="text-[10px] text-brand-teal uppercase tracking-widest font-bold hover:underline underline-offset-4">Reglamento</button>
+                </div>
             </div>
         </div>
     </footer>
 
     <!-- Modal de Aviso de Privacidad -->
-    <div id="privacy-modal" class="fixed inset-0 z-[100] items-center justify-center p-4 bg-brand-dark/80">
+    <div id="privacy-modal" class="modal-overlay fixed inset-0 z-[100] items-center justify-center p-4 bg-brand-dark/80">
         <div class="bg-white w-full max-w-2xl max-h-[80vh] overflow-y-auto rounded-sm shadow-2xl p-8 md:p-12 relative">
-            <button id="close-privacy" class="absolute top-6 right-6 text-2xl text-gray-400 hover:text-brand-dark">
+            <button onclick="toggleModal('privacy-modal')" class="absolute top-6 right-6 text-2xl text-gray-400 hover:text-brand-dark">
                 <i class="ph ph-x"></i>
             </button>
             
-            <h2 class="text-3xl text-brand-dark mb-6 italic">Aviso de Privacidad</h2>
+            <h2 class="text-3xl text-brand-dark mb-6 italic border-b border-brand-tealLight pb-2">Aviso de Privacidad</h2>
             
             <div class="space-y-6 text-gray-600 text-sm leading-relaxed text-justify">
-                <p><strong>Ballet Fit by Jen</strong>, con domicilio en Guadalajara, Jalisco, es responsable del tratamiento de sus datos personales conforme a lo establecido en la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.</p>
+                <p><strong>Ballet Fit by Jen</strong>, con domicilio en Guadalajara, Jalisco, es responsable del tratamiento de sus datos personales conforme a la ley.</p>
                 
                 <div>
                     <h3 class="font-bold text-brand-teal uppercase tracking-widest text-xs mb-2">1. Datos Recabados</h3>
-                    <p>Para efectos de inscripción y seguimiento personalizado, recabamos: Nombre completo, número de WhatsApp, rango de edad, nivel de actividad física, hábitos diarios, objetivos personales y, en su caso, información sensible referente a lesiones o condiciones físicas previas que debamos conocer para su seguridad durante la práctica.</p>
+                    <p>Nombre, WhatsApp, edad, nivel físico, hábitos y condiciones de salud/lesiones para su seguridad.</p>
                 </div>
 
                 <div>
-                    <h3 class="font-bold text-brand-teal uppercase tracking-widest text-xs mb-2">2. Finalidad del Tratamiento</h3>
-                    <p>Sus datos serán utilizados exclusivamente para: (a) Agendar y confirmar sus clases; (b) Adaptar los ejercicios a su condición física y prevenir lesiones; (c) Mantener comunicación sobre cambios en horarios o promociones; (d) Fines estadísticos internos sobre el origen de nuestras alumnas.</p>
+                    <h3 class="font-bold text-brand-teal uppercase tracking-widest text-xs mb-2">2. Finalidad</h3>
+                    <p>Agendar clases, adaptar ejercicios, comunicación de cambios y fines estadísticos internos.</p>
                 </div>
 
                 <div>
-                    <h3 class="font-bold text-brand-teal uppercase tracking-widest text-xs mb-2">3. Transferencia y Seguridad</h3>
-                    <p>Le informamos que sus datos personales no serán compartidos, vendidos ni transferidos a terceros ajenos a la operación de <strong>Ballet Fit by Jen</strong>. Contamos con medidas de seguridad técnicas para proteger su información contra daño, pérdida o acceso no autorizado.</p>
+                    <h3 class="font-bold text-brand-teal uppercase tracking-widest text-xs mb-2">3. Seguridad</h3>
+                    <p>Sus datos no serán transferidos a terceros y están protegidos por medidas técnicas de seguridad.</p>
                 </div>
 
                 <div>
                     <h3 class="font-bold text-brand-teal uppercase tracking-widest text-xs mb-2">4. Derechos ARCO</h3>
-                    <p>Usted tiene derecho a conocer qué datos tenemos de usted, para qué los utilizamos y las condiciones del uso que les damos (Acceso). Asimismo, es su derecho solicitar la corrección de su información (Rectificación); que la eliminemos de nuestros registros (Cancelación); o bien, oponerse al uso de sus datos para fines específicos (Oposición). Para ejercer estos derechos, puede contactarnos directamente vía WhatsApp.</p>
+                    <p>Puede acceder, rectificar o cancelar sus datos en cualquier momento vía WhatsApp.</p>
                 </div>
 
                 <p class="pt-4 border-t border-gray-100 italic text-[11px]">Última actualización: Enero 2026.</p>
             </div>
             
             <div class="mt-8">
-                <button id="close-privacy-btn" class="w-full bg-brand-dark text-white py-3 uppercase tracking-widest text-xs font-bold hover:bg-brand-teal transition-colors rounded-sm">Entendido</button>
+                <button onclick="toggleModal('privacy-modal')" class="w-full bg-brand-dark text-white py-3 uppercase tracking-widest text-xs font-bold hover:bg-brand-teal transition-colors rounded-sm shadow-md">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Reglamento -->
+    <div id="rules-modal" class="modal-overlay fixed inset-0 z-[100] items-center justify-center p-4 bg-brand-dark/80">
+        <div class="bg-white w-full max-w-2xl max-h-[80vh] overflow-y-auto rounded-sm shadow-2xl p-8 md:p-12 relative">
+            <button onclick="toggleModal('rules-modal')" class="absolute top-6 right-6 text-2xl text-gray-400 hover:text-brand-dark">
+                <i class="ph ph-x"></i>
+            </button>
+            
+            <h2 class="text-3xl text-brand-dark mb-6 italic border-b border-brand-tealLight pb-2">Reglamento Ballet Fit</h2>
+            
+            <div class="space-y-6 text-gray-600 text-sm leading-relaxed">
+                
+                <div>
+                    <h3 class="font-bold text-brand-teal uppercase tracking-widest text-xs mb-3 flex items-center gap-2">
+                        <i class="ph ph-credit-card"></i> 1. Inscripción y pagos
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Todos los paquetes son mensuales y se pagan los primeros 5 días del mes</li>
+                        <li>La vigencia del paquete es mensual y no acumulable.</li>
+                        <li>Las clases son personales e intransferibles.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-brand-teal uppercase tracking-widest text-xs mb-3 flex items-center gap-2">
+                        <i class="ph ph-clock"></i> 2. Asistencia y puntualidad
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Cupo máximo de 10 alumnas por horario.</li>
+                        <li>Tolerancia máxima de 10 minutos.</li>
+                        <li>Las clases no tomadas no se reponen ni se guardan.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-brand-teal uppercase tracking-widest text-xs mb-3 flex items-center gap-2">
+                        <i class="ph ph-calendar-x"></i> 3. Cancelaciones y reposiciones
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Cancelaciones por parte de la alumna con mínimo 6 horas de anticipación.</li>
+                        <li>Las clases canceladas por la alumna no son reponibles.</li>
+                        <li>Si BalletFit cancela una clase, podrá reponerse dentro del mismo mes en otro horario disponible.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-brand-teal uppercase tracking-widest text-xs mb-3 flex items-center gap-2">
+                        <i class="ph ph-t-shirt"></i> 4. Indumentaria y material
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Uso obligatorio de calcetines.</li>
+                        <li>Traer tapete personal.</li>
+                        <li>Si se utiliza material del estudio, debe limpiarse y acomodarse al finalizar la clase.</li>
+                        <li>Cuidar el material de uso común.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-brand-teal uppercase tracking-widest text-xs mb-3 flex items-center gap-2">
+                        <i class="ph ph-users"></i> 5. Conducta y seguridad
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Respeto al cuerpo, al grupo y al espacio.</li>
+                        <li>Evitar uso del celular durante la clase.</li>
+                        <li>Informar cualquier lesión o condición física antes de iniciar.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-brand-tealLight/30 p-4 rounded-sm border border-brand-teal/10">
+                    <h3 class="font-bold text-brand-teal uppercase tracking-widest text-[10px] mb-2 flex items-center gap-2">
+                        <i class="ph ph-camera"></i> 6. Uso de la imagen
+                    </h3>
+                    <div class="space-y-2 text-[12px] italic leading-snug">
+                        <p>• Durante las clases, BalletFit podrá tomar fotografías o grabar videos con fines promocionales y de difusión en redes sociales y otros medios digitales.</p>
+                        <p>• Al inscribirse a BalletFit, la alumna autoriza el uso de su imagen para dichos fines, sin que esto implique remuneración alguna.</p>
+                        <p>• El material será utilizado de manera respetuosa y profesional, cuidando siempre la integridad y dignidad de las alumnas.</p>
+                        <p>• En caso de que alguna alumna no desee aparecer en fotos o videos, deberá comunicarlo previamente para poder considerarlo.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8">
+                <button onclick="toggleModal('rules-modal')" class="w-full bg-brand-dark text-white py-3 uppercase tracking-widest text-xs font-bold hover:bg-brand-teal transition-colors rounded-sm shadow-md">He leído el reglamento</button>
             </div>
         </div>
     </div>
@@ -428,22 +517,18 @@
             link.addEventListener('click', handleNavigation);
         });
 
-        // Logica Modal Privacidad
-        const openPrivacy = document.getElementById('open-privacy');
-        const closePrivacy = document.getElementById('close-privacy');
-        const closePrivacyBtn = document.getElementById('close-privacy-btn');
-        const privacyModal = document.getElementById('privacy-modal');
+        // Lógica única para Modales
+        function toggleModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.toggle('active');
+        }
 
-        const toggleModal = () => privacyModal.classList.toggle('active');
-
-        openPrivacy.addEventListener('click', toggleModal);
-        closePrivacy.addEventListener('click', toggleModal);
-        closePrivacyBtn.addEventListener('click', toggleModal);
-
-        // Cerrar modal al hacer click fuera
-        privacyModal.addEventListener('click', (e) => {
-            if (e.target === privacyModal) toggleModal();
-        });
+        // Cerrar modales al hacer click fuera
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.classList.remove('active');
+            }
+        }
 
         // Navbar Shadow
         const navbar = document.getElementById('navbar');
