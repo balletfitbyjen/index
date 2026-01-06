@@ -72,6 +72,15 @@
         #mobile-menu {
             transition: all 0.3s ease-in-out;
         }
+
+        /* Estilos para el Modal del Aviso de Privacidad */
+        #privacy-modal {
+            display: none;
+            backdrop-filter: blur(4px);
+        }
+        #privacy-modal.active {
+            display: flex;
+        }
     </style>
 </head>
 <body class="text-brand-dark antialiased bg-white">
@@ -193,7 +202,7 @@
                 <span class="text-brand-teal font-bold uppercase tracking-widest text-sm">Técnica & Movimiento</span>
                 <h2 class="text-4xl mt-2 text-brand-dark">¿Qué es Ballet Fit?</h2>
                 <p class="max-w-2xl mx-auto mt-4 text-gray-600 text-lg px-4 italic">
-                    Es un entrenamiento completo de fuerza, resistencia que combina el pilates y el entrenamiento funcional.
+                    Es un entrenamiento completo de fuerza y resistencia que combina el pilates y el entrenamiento funcional.
                 </p>
                 <div class="w-24 h-1 bg-brand-teal mx-auto mt-8"></div>
             </div>
@@ -333,11 +342,53 @@
 
             </div>
 
-            <div class="border-t border-brand-tealLight pt-8 text-center md:text-left">
+            <div class="border-t border-brand-tealLight pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-[10px] text-gray-500 uppercase tracking-widest">&copy; 2026 Ballet Fit by Jen. Guadalajara, Jalisco.</p>
+                <button id="open-privacy" class="text-[10px] text-brand-teal uppercase tracking-widest font-bold hover:underline">Aviso de Privacidad</button>
             </div>
         </div>
     </footer>
+
+    <!-- Modal de Aviso de Privacidad -->
+    <div id="privacy-modal" class="fixed inset-0 z-[100] items-center justify-center p-4 bg-brand-dark/80">
+        <div class="bg-white w-full max-w-2xl max-h-[80vh] overflow-y-auto rounded-sm shadow-2xl p-8 md:p-12 relative">
+            <button id="close-privacy" class="absolute top-6 right-6 text-2xl text-gray-400 hover:text-brand-dark">
+                <i class="ph ph-x"></i>
+            </button>
+            
+            <h2 class="text-3xl text-brand-dark mb-6 italic">Aviso de Privacidad</h2>
+            
+            <div class="space-y-6 text-gray-600 text-sm leading-relaxed text-justify">
+                <p><strong>Ballet Fit by Jen</strong>, con domicilio en Guadalajara, Jalisco, es responsable del tratamiento de sus datos personales conforme a lo establecido en la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.</p>
+                
+                <div>
+                    <h3 class="font-bold text-brand-teal uppercase tracking-widest text-xs mb-2">1. Datos Recabados</h3>
+                    <p>Para efectos de inscripción y seguimiento personalizado, recabamos: Nombre completo, número de WhatsApp, rango de edad, nivel de actividad física, hábitos diarios, objetivos personales y, en su caso, información sensible referente a lesiones o condiciones físicas previas que debamos conocer para su seguridad durante la práctica.</p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-brand-teal uppercase tracking-widest text-xs mb-2">2. Finalidad del Tratamiento</h3>
+                    <p>Sus datos serán utilizados exclusivamente para: (a) Agendar y confirmar sus clases; (b) Adaptar los ejercicios a su condición física y prevenir lesiones; (c) Mantener comunicación sobre cambios en horarios o promociones; (d) Fines estadísticos internos sobre el origen de nuestras alumnas.</p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-brand-teal uppercase tracking-widest text-xs mb-2">3. Transferencia y Seguridad</h3>
+                    <p>Le informamos que sus datos personales no serán compartidos, vendidos ni transferidos a terceros ajenos a la operación de <strong>Ballet Fit by Jen</strong>. Contamos con medidas de seguridad técnicas para proteger su información contra daño, pérdida o acceso no autorizado.</p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-brand-teal uppercase tracking-widest text-xs mb-2">4. Derechos ARCO</h3>
+                    <p>Usted tiene derecho a conocer qué datos tenemos de usted, para qué los utilizamos y las condiciones del uso que les damos (Acceso). Asimismo, es su derecho solicitar la corrección de su información (Rectificación); que la eliminemos de nuestros registros (Cancelación); o bien, oponerse al uso de sus datos para fines específicos (Oposición). Para ejercer estos derechos, puede contactarnos directamente vía WhatsApp.</p>
+                </div>
+
+                <p class="pt-4 border-t border-gray-100 italic text-[11px]">Última actualización: Enero 2026.</p>
+            </div>
+            
+            <div class="mt-8">
+                <button id="close-privacy-btn" class="w-full bg-brand-dark text-white py-3 uppercase tracking-widest text-xs font-bold hover:bg-brand-teal transition-colors rounded-sm">Entendido</button>
+            </div>
+        </div>
+    </div>
 
     <!-- WhatsApp Floating Button -->
     <a href="https://wa.me/3331844195" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
@@ -345,6 +396,7 @@
     </a>
 
     <script>
+        // Logica Menu Movil
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
 
@@ -353,6 +405,7 @@
             menu.classList.toggle('hidden');
         });
 
+        // Logica Navegación Smooth
         const handleNavigation = (e) => {
             const href = e.currentTarget.getAttribute('href');
             if (href && href.startsWith('#')) {
@@ -375,12 +428,24 @@
             link.addEventListener('click', handleNavigation);
         });
 
-        document.addEventListener('click', (e) => {
-            if (!menu.contains(e.target) && !btn.contains(e.target)) {
-                menu.classList.add('hidden');
-            }
+        // Logica Modal Privacidad
+        const openPrivacy = document.getElementById('open-privacy');
+        const closePrivacy = document.getElementById('close-privacy');
+        const closePrivacyBtn = document.getElementById('close-privacy-btn');
+        const privacyModal = document.getElementById('privacy-modal');
+
+        const toggleModal = () => privacyModal.classList.toggle('active');
+
+        openPrivacy.addEventListener('click', toggleModal);
+        closePrivacy.addEventListener('click', toggleModal);
+        closePrivacyBtn.addEventListener('click', toggleModal);
+
+        // Cerrar modal al hacer click fuera
+        privacyModal.addEventListener('click', (e) => {
+            if (e.target === privacyModal) toggleModal();
         });
 
+        // Navbar Shadow
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 30) {
